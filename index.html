@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratorio de Binomio de Newton</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]]
+      },
+      svg: {
+        fontCache: "global"
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Laboratorio visual</p>
+      <h1>Binomio de Newton</h1>
+      <p>
+        Genera el Triángulo de Pascal, consulta coeficientes binomiales
+        y desarrolla binomios paso a paso mediante combinaciones.
+      </p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card controls-card">
+      <h2>Configurar binomio</h2>
+
+      <div class="preset-row">
+        <button class="preset-btn" data-preset="xy4" type="button">\( (x+y)^4 \)</button>
+        <button class="preset-btn" data-preset="ab6" type="button">\( (2a+3b)^6 \)</button>
+        <button class="preset-btn" data-preset="xy5" type="button">\( (2x+y)^5 \)</button>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          Coeficiente A
+          <input id="coefA" type="number" value="1" step="1" />
+        </label>
+
+        <label>
+          Variable A
+          <input id="varA" type="text" value="x" maxlength="3" />
+        </label>
+
+        <label>
+          Coeficiente B
+          <input id="coefB" type="number" value="1" step="1" />
+        </label>
+
+        <label>
+          Variable B
+          <input id="varB" type="text" value="y" maxlength="3" />
+        </label>
+
+        <label>
+          Potencia n
+          <input id="powerN" type="number" value="4" min="0" max="15" step="1" />
+        </label>
+      </div>
+
+      <div class="button-row">
+        <button id="generateBtn" type="button">Generar desarrollo</button>
+        <button id="copyBtn" type="button" class="secondary">Copiar resultado</button>
+        <button id="downloadBtn" type="button" class="secondary">Descargar resumen</button>
+      </div>
+
+      <div class="info-box">
+        <h3>Fórmula general</h3>
+        <div class="math-display">
+          \[
+            (a+b)^n=\sum_{k=0}^{n}\binom{n}{k}a^{n-k}b^k
+          \]
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h3>Término r-ésimo</h3>
+        <div class="math-display">
+          \[
+            T_r=\binom{n}{r-1}a^{n-r+1}b^{r-1}
+          \]
+        </div>
+      </div>
+    </section>
+
+    <section class="card result-card">
+      <div class="result-header">
+        <div>
+          <p class="section-label">Resultado</p>
+          <h2 id="binomialTitle">\( (x+y)^4 \)</h2>
+        </div>
+        <span id="statusBadge">n = 4</span>
+      </div>
+
+      <div class="math-result" id="expandedResult"></div>
+
+      <section class="steps-section">
+        <h3>Procedimiento</h3>
+        <ol id="stepsList"></ol>
+      </section>
+
+      <section>
+        <h3>Tabla de términos</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>r</th>
+                <th>k</th>
+                <th>\( \binom{n}{k} \)</th>
+                <th>Término</th>
+              </tr>
+            </thead>
+            <tbody id="termsTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section class="card pascal-card">
+      <div class="pascal-header">
+        <div>
+          <p class="section-label">Triángulo de Pascal</p>
+          <h2>Primeras 15 potencias</h2>
+        </div>
+        <p id="rowInfo">Fila activa: n = 4</p>
+      </div>
+
+      <div id="pascalTriangle" class="pascal-triangle"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Proyecto de portafolio desarrollado con HTML, CSS, JavaScript y MathJax.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
